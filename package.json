@@ -6,11 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
 
+    
+    "start": "node app.js",
+
     "preinstall": "node -e \"if (parseInt(process.versions.node) < 18.18) throw new Error('Node.js >= 18.18 is required!')\"",
   
     "build": "prisma generate && prisma migrate deploy || echo 'Skipping migrations'",
 
     "postinstall": "prisma generate"
+
   
   },
   "keywords": [],
