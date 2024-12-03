@@ -116,28 +116,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if (existingBox) existingBox.remove();
     }
 
-    // Save tag to database for admin
-    async function saveTag(photoId, name, xPercent, yPercent) {
-        console.log('Saving tag:', { photoId, name, xPercent, yPercent });
-        console.log('Request body:', req.body);
+    // Save tag to the backend database for admin
+async function saveTag(photoId, name, xPercent, yPercent) {
+    console.log('Payload:', { photoId, name, xPercent, yPercent }); // Log payload to debug
 
-        try {
-            const response = await fetch('/tags/save', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ photoId, name, xPercent, yPercent }),
-            });
+    try {
+        // Send a POST request to the /tags/save endpoint
+        const response = await fetch('/tags/save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ photoId, name, xPercent, yPercent }),
+        });
 
-            const result = await response.json();
-            if (result.success) {
-                alert('Tag saved successfully.');
-            } else {
-                alert('Failed to save tag.');
-            }
-        } catch (error) {
-            console.error('Error saving tag:', error);
+        // Parse the response
+        const result = await response.json();
+
+        // Check if the backend confirmed success
+        if (result.success) {
+            console.log('Response:', result); // Log success response
+            alert('Tag saved successfully.');
+        } else {
+            console.error('Failed to save tag:', result.error); // Log backend error
+            alert('Failed to save tag.');
         }
+    } catch (error) {
+        // Log any fetch-related errors
+        console.error('Error saving tag:', error);
+        alert('An error occurred while saving the tag.');
     }
+}
+
 
     // Validate marker placement for user
     async function validateMarker(photoId, name, xPercent, yPercent) {
