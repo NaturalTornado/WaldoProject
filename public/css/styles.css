@@ -1,0 +1,65 @@
+#photo-container {
+    position: relative;
+    display: inline-block; /* Ensures the container wraps the image */
+    width: 1500px;
+    height: auto;
+    border: solid;
+    border-width: 6px;
+    border-color: black;
+    z-index: 0;
+  }
+  
+  #photo-container img {
+    display: block; /* Removes extra space below the image */
+    max-width: 100%; /* Ensure image scales correctly */
+    height: auto;
+  }
+  
+  .targeting-box {
+    position: absolute;
+    border: 2px solid red;
+    background: rgba(255, 0, 0, 0.2);
+    width: 150px; /* Set reasonable width and height */
+    height: 150px;
+    z-index: 10;
+  }
+  
+
+  
+  /**/
+
+  .toggle-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.toggle-btn:active {
+    background-color: green;
+}
+
+.option-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+
+.option-btn:active {
+    background-color: yellow;
+}
+
+.character-dropdown {
+  position: absolute;
+  background: white;
+  border: 1px solid gray;
+  padding: 5px;
+  z-index: 20;
+}

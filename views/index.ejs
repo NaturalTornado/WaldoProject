@@ -1,0 +1,43 @@
+<body>
+  <% if (user) { %>
+    <h1>Welcome back, <%= user.username %>!</h1>
+    <a href="/log-out">Log Out</a>
+
+    <h2>Photo</h2>
+    <div id="photo-container" style="position: relative; border: solid black 8px; z-index: 0;">
+      <img id="sunny_1" src="/images/sunny_1.png" alt="Where's Frank?" data-photo-id="1" style="width: 100%;">
+    </div>
+
+    <!-- Toggle Buttons -->
+    <div id="toggle-buttons">
+      <button id="admin-button" class="toggle-btn">Admin</button>
+      <button id="user-button" class="toggle-btn">User</button>
+    </div>
+
+    <!-- Dropdown Options -->
+    <div id="dropdown-options">
+      <h3>Options:</h3>
+      <button class="option-btn" data-character="Frank">Frank</button>
+      <button class="option-btn" data-character="Charlie">Charlie</button>
+      <button class="option-btn" data-character="Dee">Dee</button>
+    </div>
+
+    <!-- Navigation to Photo Management Page -->
+    <% if (1===1) { %>
+      <h3>Admin Options</h3>
+      <a href="/admin/photos" class="admin-link">Manage Photos and Tags</a>
+    <% } %>
+  <% } else { %>
+    <h1>Please log in</h1>
+    <form action="/log-in" method="POST">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" required />
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required />
+      <button>Log In</button>
+    </form>
+    <a href="/sign-up">Sign Up Form</a>
+
+  <% } %>
+  <script src="/js/targeting.js"></script>
+</body>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Management</title>
+  <style>
+    .targeting-box {
+      position: absolute;
+      border: 2px solid red;
+      background: rgba(255, 0, 0, 0.2);
+      width: 50px;
+      height: 50px;
+      z-index: 10;
+    }
+    #photo-container {
+      position: relative;
+      display: inline-block;
+      border: 2px solid black;
+    }
+    #photo {
+      display: block;
+      max-width: 100%;
+    }
+    form {
+      margin: 20px 0;
+    }
+    label {
+      margin-right: 10px;
+    }
+    button {
+      margin-left: 10px;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Photo Management</h1>
+
+  <!-- Section to Add a New Photo -->
+  <h2>Add New Photo</h2>
+  <form id="add-photo-form" action="/admin/photos/add" method="POST">
+    <label for="title">Photo Title:</label>
+    <input type="text" id="title" name="title" placeholder="Enter photo title" required />
+    
+    <label for="filePath">File Path:</label>
+    <input type="text" id="filePath" name="filePath" placeholder="/images/filename.jpg" required />
+    
+    <button type="submit">Add Photo</button>
+  </form>
+
+  <!-- Section to Tag Photos -->
+  <h2>Tag Photos</h2>
+  <div id="photo-container">
+    <img id="photo" src="/images/sample.jpg" alt="Sample Photo">
+  </div>
+
+  <form id="tag-form" action="/admin/photos/1/tags/add" method="POST">
+    <label for="name">Tag Name:</label>
+    <input type="text" id="name" name="name" placeholder="Enter tag name" required />
+
+    <!-- Hidden fields for coordinates -->
+    <input type="hidden" id="xPercent" name="xPercent">
+    <input type="hidden" id="yPercent" name="yPercent">
+
+    <button type="submit">Add Tag</button>
+  </form>
+
+  <a href="/" class="admin-link">bACK Home</a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const photo = document.getElementById('photo');
+      const container = document.getElementById('photo-container');
+      const tagForm = document.getElementById('tag-form');
+      const xInput = document.getElementById('xPercent');
+      const yInput = document.getElementById('yPercent');
+
+      // Handle photo click event
+      photo.addEventListener('click', (event) => {
+        const rect = photo.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        const xPercent = (x / rect.width) * 100;
+        const yPercent = (y / rect.height) * 100;
+
+        // Update the form fields with calculated coordinates
+        xInput.value = xPercent.toFixed(2);
+        yInput.value = yPercent.toFixed(2);
+
+        // Display a targeting box at the clicked position
+        const box = document.createElement('div');
+        box.className = 'targeting-box';
+        box.style.left = `calc(${xPercent}% - 25px)`; // Center the box
+        box.style.top = `calc(${yPercent}% - 25px)`;
+
+        // Remove existing targeting box if any
+        document.querySelectorAll('.targeting-box').forEach(box => box.remove());
+        container.appendChild(box);
+      });
+    });
+  </script>
+</body>
+</html>
