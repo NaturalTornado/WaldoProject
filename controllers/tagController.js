@@ -92,23 +92,24 @@ const addPhoto = async (req, res) => {
 const saveTag = async (req, res) => {
     const { photoId, name, xPercent, yPercent } = req.body;
 
+    // Validate photo ID
     const photo = await prisma.photos.findUnique({
         where: { id: Number(photoId) },
-
     });
 
     if (!photo) {
-
-        return res.status(400).json({error: "Photo ID does not exist"});
+        return res.status(400).json({ error: "Photo ID does not exist" });
     }
 
-    if(!photoID || !name || xPercent === undefined || yPercent === undefined) {return res.status(400).json({error: 
-        "Missing required fields: PhotoID, name, xPercent, yPercent",
+    // Validate required fields
+    if (!photoId || !name || xPercent === undefined || yPercent === undefined) {
+        return res.status(400).json({
+            error: "Missing required fields: photoId, name, xPercent, yPercent",
         });
-
     }
 
     try {
+        // Save the tag to the database
         const newTag = await prisma.tags.create({
             data: {
                 photo_id: Number(photoId),
@@ -118,6 +119,7 @@ const saveTag = async (req, res) => {
             },
         });
 
+        // Respond with success
         res.json({
             success: true,
             message: 'Tag saved successfully',
@@ -128,6 +130,7 @@ const saveTag = async (req, res) => {
         res.status(500).json({ error: 'Failed to save the tag!!!!!!' });
     }
 };
+
 
 module.exports = {
     fetchTags,
