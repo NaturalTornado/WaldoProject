@@ -23,7 +23,7 @@ const addPhoto = async (req, res) => {
 
     try {
         await prisma.photos.create({
-            data: { title, file_path: /images/sunny_1.png },
+            data: { title, file_path: "/images/sunny_1.png" },
         });
         res.redirect('/admin/photos');
     } catch (error) {
