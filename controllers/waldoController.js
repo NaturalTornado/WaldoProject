@@ -19,7 +19,7 @@ const renderHomePage = async (req, res) => {
         res.render('index', { user, messages });
     } catch (err) {
         console.error('Error rendering home page:', err);
-        res.status(500).send('Server error');
+        res.status(500).send('Server errorg!1');
     }
 };
 

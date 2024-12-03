@@ -1,12 +1,10 @@
-// pool.js - Database connection pool
 const { Pool } = require('pg');
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'waldo_db',
-    password: 'Kur0sawa',
-    port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Required for Heroku's managed PostgreSQL
+  },
 });
 
 module.exports = pool;
