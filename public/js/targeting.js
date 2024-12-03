@@ -119,6 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Save tag to database for admin
     async function saveTag(photoId, name, xPercent, yPercent) {
         console.log('Saving tag:', { photoId, name, xPercent, yPercent });
+        console.log('Request body:', req.body);
+
         try {
             const response = await fetch('/tags/save', {
                 method: 'POST',
